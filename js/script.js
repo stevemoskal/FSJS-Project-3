@@ -80,7 +80,6 @@ activities.addEventListener('change', (e) => {
 // Hiding and Displaying the payment info sections
 
 const paymentSelect = document.getElementById('payment');
-const allPayments = document.querySelector('.payment-methods');
 const creditCard = document.getElementById('credit-card');
 const paypal = document.getElementById('paypal');
 const bitcoin = document.getElementById('bitcoin');
@@ -90,7 +89,6 @@ bitcoin.hidden = true;
 paymentSelect.children[1].setAttribute('selected','');
 
 paymentSelect.addEventListener('change', (e) => {
-  for ( let i = 0; i < allPayments.children.length; i++ ) {
     const target = e.target.value;
     if (target === 'credit-card') {
       creditCard.hidden = false;
@@ -105,5 +103,4 @@ paymentSelect.addEventListener('change', (e) => {
       paypal.hidden = true;
       bitcoin.hidden = false;
     }
-  }
 });
