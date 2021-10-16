@@ -49,6 +49,17 @@ const activityList = document.getElementById('activities-box');
 const allInputs = activityList.querySelectorAll('input[type="checkbox"]');
 let totalCost = 0;
 
+
+for ( let i = 0; i < allInputs.length; i++ ) {
+  allInputs[i].addEventListener('focus', (e) => {
+    e.target.parentElement.classList.add('focus');
+  });
+  allInputs[i].addEventListener('blur', (e) => {
+    e.target.parentElement.classList.remove('focus');
+  });
+}
+
+
 activities.addEventListener('change', (e) => {
   const activityCost = parseInt(e.target.getAttribute('data-cost'));
   if (e.target.checked) {
@@ -103,4 +114,70 @@ paymentSelect.addEventListener('change', (e) => {
       paypal.hidden = true;
       bitcoin.hidden = false;
     }
+});
+
+// Form validation
+
+const email = document.getElementById('email');
+const cardNumber = document.getElementById('cc-num');
+const zipCode = document.getElementById('zip');
+const cvv = document.getElementById('cvv');
+const form = document.querySelector('form');
+
+function invalidInput(input, text){
+  input.parentElement.classList.add('not-valid');
+  input.parentElement.classList.remove('valid');
+  input.nextElementSibling.style.display = 'block';
+  if ( input.value === '') {
+    input.nextElementSibling.textContent = `${text} Field Must not be Blank`;
+  } else {
+    input.nextElementSibling.textContent = `Please Enter a Valid ${text}`;
+  }
+}
+
+function validInput(input){
+  input.parentElement.classList.add('valid');
+  input.parentElement.classList.remove('not-valid');
+  input.nextElementSibling.style.display = 'none';
+}
+
+function checkInput(input, inputParent, text) {
+  if (input === false) {
+    invalidInput(inputParent, text);
+  } else {
+    validInput(inputParent);
+  }
+}
+
+form.addEventListener('submit', (e) => {
+  const nameInput = name.value;
+  const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(nameInput);
+  const emailInput = email.value;
+  const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput);
+  const cardInput = cardNumber.value;
+  const validCard = /^[0-9]{13,16}$/.test(cardInput);
+  const zipInput = zipCode.value;
+  const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipInput);
+  const cvvInput = cvv.value;
+  const validCvv = /^[0-9]{3,4}$/.test(cvvInput);
+
+  if (paymentSelect.value === 'credit-card') {
+    if ( validName === false ||
+        validEmail === false ||
+        validZip === false ||
+        validCvv === false ||
+        validCard === false) {
+          e.preventDefault();
+          checkInput(validName, name, 'Name');
+          checkInput(validEmail, email, 'Email');
+          checkInput(validCard, cardNumber, 'Credit Card Number');
+          checkInput(validZip, zip, 'Zip Code');
+          checkInput(validCvv, cvv, 'CVV');
+        }
+  } else if ( validName === false ||
+      validEmail === false ) {
+        e.preventDefault();
+        checkInput(validName, name, 'Name');
+        checkInput(validEmail, email, 'Email');
+      }
 });
