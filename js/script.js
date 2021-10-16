@@ -149,12 +149,22 @@ function checkInput(input, inputParent, text) {
   }
 }
 
+function activitiesCheck() {
+    let unchecked = 0;
+    for ( let i = 0; i < allInputs.length; i++ ) {
+      if ( allInputs[i].checked === false) {
+        unchecked++;
+      }
+    }
+    return unchecked;
+}
+
 form.addEventListener('submit', (e) => {
   const nameInput = name.value;
   const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(nameInput);
   const emailInput = email.value;
   const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput);
-  const cardInput = cardNumber.value;
+  const cardInput = cardNumber.value.replace(/[\D]/g, '');
   const validCard = /^[0-9]{13,16}$/.test(cardInput);
   const zipInput = zipCode.value;
   const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipInput);
@@ -180,4 +190,17 @@ form.addEventListener('submit', (e) => {
         checkInput(validName, name, 'Name');
         checkInput(validEmail, email, 'Email');
       }
+
+    if ( activitiesCheck() === 7 ) {
+      e.preventDefault();
+      activities.classList.add('not-valid');
+      activities.classList.remove('valid');
+      activities.lastElementChild.style.display = 'block';
+    }
+});
+
+cardNumber.addEventListener('keyup', (e) => {
+  const cardInput = cardNumber.value.replace(/[\D]/g, '');
+  const validCard = /^[0-9]{13,16}$/.test(cardInput);
+  checkInput(validCard, cardNumber, 'Credit Card Number');
 });
