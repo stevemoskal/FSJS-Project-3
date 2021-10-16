@@ -4,10 +4,12 @@ FSJS Project 3 - Interactive Form
 */
 
 // Add focus on page load to the Name input field
+
 const name = document.getElementById('name');
 name.focus();
 
 // Show and Hide the 'Other Job Role' input field based on user selection
+
 const jobRole = document.getElementById('title');
 const otherJobRole = document.getElementById('other-job-role');
 otherJobRole.style.display = 'none';
@@ -21,6 +23,7 @@ jobRole.addEventListener('change', (e) => {
 });
 
 // Disable the color selection until a T-shirt choice is picked, then only show applicable options
+
 const design = document.getElementById('design');
 const color = document.getElementById('color');
 color.disabled = true;
@@ -49,7 +52,6 @@ const activityList = document.getElementById('activities-box');
 const allInputs = activityList.querySelectorAll('input[type="checkbox"]');
 let totalCost = 0;
 
-
 for ( let i = 0; i < allInputs.length; i++ ) {
   allInputs[i].addEventListener('focus', (e) => {
     e.target.parentElement.classList.add('focus');
@@ -58,7 +60,6 @@ for ( let i = 0; i < allInputs.length; i++ ) {
     e.target.parentElement.classList.remove('focus');
   });
 }
-
 
 activities.addEventListener('change', (e) => {
   const activityCost = parseInt(e.target.getAttribute('data-cost'));
@@ -159,6 +160,8 @@ function activitiesCheck() {
     return unchecked;
 }
 
+// complete event listener on 'submit'
+
 form.addEventListener('submit', (e) => {
   const nameInput = name.value;
   const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(nameInput);
@@ -196,11 +199,23 @@ form.addEventListener('submit', (e) => {
       activities.classList.add('not-valid');
       activities.classList.remove('valid');
       activities.lastElementChild.style.display = 'block';
+    } else {
+      activities.classList.add('valid');
+      activities.classList.remove('not-valid');
+      activities.lastElementChild.style.display = 'none';
     }
 });
+
+// focus 'keyup' event listener on seperate inputs
 
 cardNumber.addEventListener('keyup', (e) => {
   const cardInput = cardNumber.value.replace(/[\D]/g, '');
   const validCard = /^[0-9]{13,16}$/.test(cardInput);
   checkInput(validCard, cardNumber, 'Credit Card Number');
+});
+
+email.addEventListener('keyup', (e) => {
+  const emailInput = email.value;
+  const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput);
+  checkInput(validEmail, email, 'Email');
 });
