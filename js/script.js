@@ -30,18 +30,20 @@ color.disabled = true;
 
 design.addEventListener('change', (e) => {
   color.disabled = false;
+  let activeColor = [];
   for ( let i = 0; i < color.children.length; i++ ) {
     const value = e.target.value;
     const dataTheme = color.children[i].getAttribute('data-theme');
     if (value === dataTheme) {
       color.children[i].disabled = false;
       color.children[i].hidden = false;
+      activeColor.push(color.children[i]);
     } else {
       color.children[i].disabled = true;
       color.children[i].hidden = true;
     }
   }
-  color.children[0].selected = true;
+  activeColor[0].selected = true;
 });
 
 // Calculating the total cost of the activities chosen and displaying it on the page
@@ -163,16 +165,11 @@ function activitiesCheck() {
 // complete event listener on 'submit'
 
 form.addEventListener('submit', (e) => {
-  const nameInput = name.value;
-  const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(nameInput);
-  const emailInput = email.value;
-  const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput);
-  const cardInput = cardNumber.value.replace(/[\D]/g, '');
-  const validCard = /^[0-9]{13,16}$/.test(cardInput);
-  const zipInput = zipCode.value;
-  const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipInput);
-  const cvvInput = cvv.value;
-  const validCvv = /^[0-9]{3,4}$/.test(cvvInput);
+  const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(name.value);
+  const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
+  const validCard = /^[0-9]{13,16}$/.test(cardNumber.value.replace(/[\D]/g, ''));
+  const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipCode.value);
+  const validCvv = /^[0-9]{3,4}$/.test(cvv.value);
 
   if (paymentSelect.value === 'credit-card') {
     if ( validName === false ||
@@ -209,13 +206,11 @@ form.addEventListener('submit', (e) => {
 // focus 'keyup' event listener on seperate inputs
 
 cardNumber.addEventListener('keyup', (e) => {
-  const cardInput = cardNumber.value.replace(/[\D]/g, '');
-  const validCard = /^[0-9]{13,16}$/.test(cardInput);
+  const validCard = /^[0-9]{13,16}$/.test(cardNumber.value.replace(/[\D]/g, ''));
   checkInput(validCard, cardNumber, 'Credit Card Number');
 });
 
 email.addEventListener('keyup', (e) => {
-  const emailInput = email.value;
-  const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput);
+  const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
   checkInput(validEmail, email, 'Email');
 });
