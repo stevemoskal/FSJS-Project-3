@@ -25,16 +25,11 @@ If any input is selected, all conflicting activities will be disabled.
 I found the most challenging aspect of this project to be the Regular Expressions used to validate the user input. There were several websites that I referenced for help with these expressions, most notably searching on (https://stackoverflow.com), as well as (https://developer.mozilla.org/en-US/). I also used (https://regexpal.com) to test the RegEx's before implementing them in my code. All of the RegEx's used in this code is as follows, with a description of the requirements for a valid input below:
 
 ```
-const nameInput = name.value;
-const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(nameInput);
-const emailInput = email.value;
-const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput);
-const cardInput = cardNumber.value.replace(/[\D]/g, '');
-const validCard = /^[0-9]{13,16}$/.test(cardInput);
-const zipInput = zipCode.value;
-const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipInput);
-const cvvInput = cvv.value;
-const validCvv = /^[0-9]{3,4}$/.test(cvvInput);
+const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(name.value);
+const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
+const validCard = /^[0-9]{13,16}$/.test(cardNumber.value.replace(/[\D]/g, ''));
+const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipCode.value);
+const validCvv = /^[0-9]{3,4}$/.test(cvv.value);
 ```
 Name - Must be at least two names, special characters allowed are ' and -  (case insensitive)
 Email - must contain characters before an '@' symbol, follow by characters then a '.' followed by at least one more letter (case insensitive)
