@@ -11,13 +11,13 @@ There are three different types of code contained in this repository: HTML, CSS 
 
 #### Exceeds Expectations Explained
 
-Real Time Error Messages
+Real Time Error Messages -
 There are two inputs that are programmed for the 'keyup' event listener, the email input and the credit card input. These inputs will update while the user is inputting the information, and not only once the submit function had run.
 
-Conditional Error Messages
+Conditional Error Messages -
 All inputs are programmed for two separate errors, if the field is blank, the input error will display that the field cannot be blank, if there is a value but incorrect, the error message will change to say that a valid input is required.
 
-Conflicting Activities
+Conflicting Activities - 
 If any input is selected, all conflicting activities will be disabled.
 
 #### Outside Resources

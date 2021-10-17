@@ -103,20 +103,20 @@ bitcoin.hidden = true;
 paymentSelect.children[1].setAttribute('selected','');
 
 paymentSelect.addEventListener('change', (e) => {
-    const target = e.target.value;
-    if (target === 'credit-card') {
-      creditCard.hidden = false;
-      paypal.hidden = true;
-      bitcoin.hidden = true;
-    } else if (target === 'paypal') {
-      creditCard.hidden = true;
-      paypal.hidden = false;
-      bitcoin.hidden = true;
-    } else if (target === 'bitcoin') {
-      creditCard.hidden = true;
-      paypal.hidden = true;
-      bitcoin.hidden = false;
-    }
+  const target = e.target.value;
+  if (target === 'credit-card') {
+    creditCard.hidden = false;
+    paypal.hidden = true;
+    bitcoin.hidden = true;
+  } else if (target === 'paypal') {
+    creditCard.hidden = true;
+    paypal.hidden = false;
+    bitcoin.hidden = true;
+  } else if (target === 'bitcoin') {
+    creditCard.hidden = true;
+    paypal.hidden = true;
+    bitcoin.hidden = false;
+  }
 });
 
 // Form validation
@@ -153,13 +153,13 @@ function checkInput(input, inputParent, text) {
 }
 
 function activitiesCheck() {
-    let unchecked = 0;
-    for ( let i = 0; i < allInputs.length; i++ ) {
-      if ( allInputs[i].checked === false) {
-        unchecked++;
-      }
+  let unchecked = 0;
+  for ( let i = 0; i < allInputs.length; i++ ) {
+    if ( allInputs[i].checked === false) {
+      unchecked++;
     }
-    return unchecked;
+  }
+  return unchecked;
 }
 
 // complete event listener on 'submit'
