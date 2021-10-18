@@ -127,6 +127,17 @@ const zipCode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 const form = document.querySelector('form');
 
+function invalidName(input, text){
+  input.parentElement.classList.add('not-valid');
+  input.parentElement.classList.remove('valid');
+  input.nextElementSibling.style.display = 'block';
+  if ( input.value === '') {
+    input.nextElementSibling.textContent = `${text} Field Must not be Blank`;
+  } else {
+    input.nextElementSibling.textContent = `Please Enter a First and Last Name`;
+  }
+}
+
 function invalidInput(input, text){
   input.parentElement.classList.add('not-valid');
   input.parentElement.classList.remove('valid');
@@ -142,6 +153,14 @@ function validInput(input){
   input.parentElement.classList.add('valid');
   input.parentElement.classList.remove('not-valid');
   input.nextElementSibling.style.display = 'none';
+}
+
+function checkNameInput(input, inputParent, text) {
+  if (input === false) {
+    invalidName(inputParent, text);
+  } else {
+    validInput(inputParent);
+  }
 }
 
 function checkInput(input, inputParent, text) {
@@ -178,7 +197,7 @@ form.addEventListener('submit', (e) => {
         validCvv === false ||
         validCard === false) {
           e.preventDefault();
-          checkInput(validName, name, 'Name');
+          checkNameInput(validName, name, 'Name');
           checkInput(validEmail, email, 'Email');
           checkInput(validCard, cardNumber, 'Credit Card Number');
           checkInput(validZip, zip, 'Zip Code');
@@ -187,7 +206,7 @@ form.addEventListener('submit', (e) => {
   } else if ( validName === false ||
       validEmail === false ) {
         e.preventDefault();
-        checkInput(validName, name, 'Name');
+        checkNameInput(validName, name, 'Name');
         checkInput(validEmail, email, 'Email');
       }
 
@@ -213,4 +232,19 @@ cardNumber.addEventListener('keyup', (e) => {
 email.addEventListener('keyup', (e) => {
   const validEmail = /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
   checkInput(validEmail, email, 'Email');
+});
+
+name.addEventListener('keyup', (e) => {
+  const validName = /^[a-z]([-']?[a-z]+)*( [a-z]([-']?[a-z]+)*)+$/i.test(name.value);
+  checkNameInput(validName, name, 'Name');
+});
+
+zipCode.addEventListener('keyup', (e) => {
+  const validZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zipCode.value);
+  checkInput(validZip, zip, 'Zip Code');
+});
+
+cvv.addEventListener('keyup', (e) => {
+  const validCvv = /^[0-9]{3,4}$/.test(cvv.value);
+  checkInput(validCvv, cvv, 'CVV');
 });
