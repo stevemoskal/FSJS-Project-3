@@ -15,7 +15,7 @@ const otherJobRole = document.getElementById('other-job-role');
 otherJobRole.style.display = 'none';
 
 jobRole.addEventListener('change', (e) => {
-  if (event.target.value === 'other') {
+  if (e.target.value === 'other') {
     otherJobRole.style.display = '';
   } else {
     otherJobRole.style.display = 'none';
